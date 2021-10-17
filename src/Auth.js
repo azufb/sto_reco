@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { initializeApp } from "firebase/app";
 //import firebase from "./Firebase";
 import { getAuth, signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
 
 const Auth = () => {
+  const [logIn, setlogIn] = useState(false);
 
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -16,13 +17,15 @@ const Auth = () => {
   
   initializeApp(firebaseConfig);
 
+  const auth = getAuth();
+
   const login = () => {
     const provider = new GoogleAuthProvider();
 
-    const auth = getAuth();
     signInWithRedirect(auth, provider);
-  }
 
+    setlogIn(true);
+  }
 
   return (
     <div>
